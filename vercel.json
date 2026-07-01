@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npx turbo run build --filter=@dropship/storefront",
+  "outputDirectory": "apps/storefront/.next",
+  "installCommand": "npm install",
+  "framework": "nextjs"
+}
