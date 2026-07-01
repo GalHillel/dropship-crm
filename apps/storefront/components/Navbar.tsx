@@ -6,25 +6,36 @@ import { useLocale, useTranslations } from 'next-intl'
 import { ShoppingCart, Menu, X, Globe } from 'lucide-react'
 import { getCartItemCount, getCart } from '@/lib/cart'
 
-export default function Navbar() {
+interface NavbarProps {
+  hasAnnouncement?: boolean
+}
+
+export default function Navbar({ hasAnnouncement = false }: NavbarProps) {
   const t = useTranslations('nav')
   const locale = useLocale()
   const other = locale === 'en' ? 'he' : 'en'
   const [mobileOpen, setMobileOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0)
   const [scrolled, setScrolled] = useState(false)
+  const [announcementUp, setAnnouncementUp] = useState(hasAnnouncement)
 
   useEffect(() => {
     const updateCart = () => setCartCount(getCartItemCount(getCart()))
     updateCart()
     window.addEventListener('storage', updateCart)
     window.addEventListener('cart-updated', updateCart)
+
     const onScroll = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', onScroll)
+
+    const onAnnouncementDismissed = () => setAnnouncementUp(false)
+    window.addEventListener('announcement-dismissed', onAnnouncementDismissed)
+
     return () => {
       window.removeEventListener('storage', updateCart)
       window.removeEventListener('cart-updated', updateCart)
       window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('announcement-dismissed', onAnnouncementDismissed)
     }
   }, [])
 
@@ -35,7 +46,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-200 ${
+      className={`fixed inset-x-0 z-50 transition-all duration-200 ${
+        announcementUp ? 'top-9' : 'top-0'
+      } ${
         scrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm border-b border-slate-100' : 'bg-white/80 backdrop-blur-sm'
       }`}
     >
@@ -46,7 +59,7 @@ export default function Navbar() {
             <div className="h-8 w-8 bg-slate-900 rounded-lg flex items-center justify-center">
               <span className="text-white text-xs font-bold">DS</span>
             </div>
-            <span className="font-semibold text-slate-900 hidden sm:block">DropShip CRM</span>
+            <span className="font-semibold text-slate-900 hidden sm:block">DropShip Pro</span>
           </Link>
 
           {/* Desktop nav */}
@@ -80,7 +93,7 @@ export default function Navbar() {
             >
               <ShoppingCart className="h-5 w-5 text-slate-700" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-4.5 w-4.5 min-w-[18px] bg-slate-900 text-white text-[10px] font-semibold rounded-full flex items-center justify-center px-1">
+                <span className="absolute -top-1 -right-1 h-[18px] w-[18px] min-w-[18px] bg-slate-900 text-white text-[10px] font-semibold rounded-full flex items-center justify-center px-1">
                   {cartCount}
                 </span>
               )}
