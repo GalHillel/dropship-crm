@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, ShoppingBag, Users, Package, BarChart2, Settings, Globe, LogOut } from 'lucide-react'
+import { LayoutDashboard, ShoppingBag, Users, Package, BarChart2, Truck, Settings, Globe, LogOut } from 'lucide-react'
 import { createBrowserClient } from '@supabase/ssr'
 
 export default function Sidebar() {
@@ -18,6 +18,7 @@ export default function Sidebar() {
     { href: `/${locale}/orders`, icon: ShoppingBag, label: t('orders') },
     { href: `/${locale}/crm`, icon: Users, label: t('crm') },
     { href: `/${locale}/products`, icon: Package, label: t('products') },
+    { href: `/${locale}/suppliers`, icon: Truck, label: t('suppliers') },
     { href: `/${locale}/analytics`, icon: BarChart2, label: t('analytics') },
   ]
 
