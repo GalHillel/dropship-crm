@@ -3,10 +3,9 @@ import { Inter } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
-import Sidebar from '@/components/Sidebar'
 import '../globals.css'
 
-const inter = Inter({ subsets: ['latin', 'hebrew'], variable: '--font-inter' })
+const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter' })
 const locales = ['en', 'he']
 
 export const metadata: Metadata = {
@@ -31,17 +30,8 @@ export default async function AdminLayout({
 
   return (
     <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'} className={inter.variable}>
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
-        <NextIntlClientProvider messages={messages}>
-          <div className="flex min-h-screen">
-            <Sidebar />
-            <main className="flex-1 min-w-0 overflow-auto">
-              <div className="max-w-screen-xl mx-auto px-6 py-8">
-                {children}
-              </div>
-            </main>
-          </div>
-        </NextIntlClientProvider>
+      <body className="min-h-screen bg-[#0a0a0a] text-white antialiased">
+        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
   )

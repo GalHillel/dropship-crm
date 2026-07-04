@@ -5,7 +5,8 @@
     "crm": "CRM",
     "products": "מוצרים",
     "analytics": "אנליטיקה",
-    "settings": "הגדרות"
+    "settings": "הגדרות",
+    "logout": "התנתקות"
   },
   "dashboard": {
     "title": "לוח בקרה",

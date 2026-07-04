@@ -5,7 +5,8 @@
     "crm": "CRM",
     "products": "Products",
     "analytics": "Analytics",
-    "settings": "Settings"
+    "settings": "Settings",
+    "logout": "Log Out"
   },
   "dashboard": {
     "title": "Dashboard",
